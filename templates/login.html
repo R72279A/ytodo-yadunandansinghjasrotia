@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Add A Todo.{% endblock %}</title>
+</head>
+
+<body>
+    <header class="header">
+        <a href="/" rel="noopener noreferrer"> Yadu Todo </a>
+    </header>
+    <section class="Add A Todo">
+        <h1 style="text-align: center; align-items: center;"> Add A Todos </h1>
+        <h3 style="text-align: center; align-items: center;">Enter Your Todo.</h3>
+        <form accept="/" method="POST" style="text-align: center; align-items: center;">
+            <input for="title" type="text" class="email" id="title" name="title" placeholder="Enter Your Todo Name.">
+            <h3>Enter Your description.</h3>
+            <input for="desc" type="tel" class="password" id="desc" name="desc" placeholder="Enter Your Password.">
+            <br>
+            <button class="submit" value="submit">Submit.</button>
+        </form>
+    </section>
+    <section class="todo">
+        <div class="container my-3">
+            <h1>Your Todo</h1>
+            {% if allTodo|length == 0 %}
+            <div class="alert alert-dark" role="alert">
+                Hey!🙋‍♂️🙋‍♂️ you do not have Todos yet,
+                Add Your first Todo.😀😀
+            </div>
+            {% else %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Sno.</th>
+                        <th scope="col">Title.</th>
+                        <th scope="col">Desecription.</th>
+                        <th scope="col">Date & Time.</th>
+                        <th scope="col">Actions.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% endif %}
+                    {% for todo in allTodo %}
+                    <tr>
+                        <th scope="row">{{loop.index}}</th>
+                        <td>{{todo.title}}</td>
+                        <td>{{todo.desc}}</td>
+                        <td>{{todo.date_created}}</td>
+                        <td>
+                            <a href="/update/{{todo.sno}}" type="button"
+                                class="btn btn-outline-dark btn-sm">Update</button>
+                        </td>
+                        <td>
+                            <a href="/delete/{{todo.sno}}" type="button"
+                                class="btn btn-outline-dark btn-sm">Delete</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+            </table>
+        </div>
+    </section>
+</body>
+
+</html>
